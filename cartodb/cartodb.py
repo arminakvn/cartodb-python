@@ -23,7 +23,7 @@ import httplib2
 import warnings
 import oauth2 as oauth
 import requests
-from requests_oauthlib import OAuth1Session
+#from requests_oauthlib import OAuth1Session
 
 try:
     from urllib.parse import parse_qsl, urlencode
