@@ -21,12 +21,15 @@
 """
 import httplib2
 import warnings
-import urlparse
 import oauth2 as oauth
-import urllib
 import requests
 from requests_oauthlib import OAuth1Session
 
+try:
+    from urllib.parse import parse_qsl, urlencode
+except ImportError:
+    from urllib import urlencode
+    from urlparse import parse_qsl
 try:
     import json
 except ImportError:
@@ -206,8 +209,8 @@ class CartoDBOAuth(CartoDBBase):
 
         # Get Access Token
         access_token_url = ACCESS_TOKEN_URL % {'user': cartodb_domain, 'domain': self.host, 'protocol': self.protocol}
-        resp, token = client.request(access_token_url, method="POST", body=urllib.urlencode(params))
-        access_token = dict(urlparse.parse_qsl(token))
+        resp, token = client.request(access_token_url, method="POST", body=urlencode(params))
+        access_token = dict(parse_qsl(token))
 
         # Prepare client (now this is requests again!)
         try:
